@@ -15,10 +15,10 @@ ScreenFactory::~ScreenFactory()
     delete _screenFactory;
 }
 
-bool ScreenFactory::CreateScreen(){
+bool ScreenFactory::CreateScreen(int lines, int columns){
 
-    _lines = 40;
-    _columns = 20; 
+    _lines = lines;
+    _columns = columns; 
     _screenMatriz = new std::string *[_lines];
     for (int i = 0; i < _lines; i++) {
     _screenMatriz[i] = new std::string[_columns];
@@ -31,6 +31,7 @@ bool ScreenFactory::DeleteScreen(){
         delete[] _screenMatriz[i]; // Libera memória das linhas
     }
     delete[] _screenMatriz; 
+    
 }
 
 bool ScreenFactory::ReadScreen(){
@@ -40,5 +41,28 @@ bool ScreenFactory::ReadScreen(){
             cout << _screenMatriz[i][j];
         }
         cout << "\n"<< endl;
+    }
+}
+
+bool ScreenFactory::ResizeScreen(int lines, int columns){
+    int oldLines = _lines;
+    int oldColumns = _columns;
+    std::string ** oldScreen = _screenMatriz;
+    ScreenFactory::DeleteScreen();
+
+    ScreenFactory::CreateScreen(lines, columns);
+
+    try
+    {
+        for (int i = 0; i < oldLines && i <= _lines; i++) {
+            for (int j = 0; j < oldColumns && j <= _columns; j++) {
+                _screenMatriz[i][j] = oldScreen[i][j];
+            }
+        }
+    }
+
+    catch(exception ex)
+    {
+        cout << "Unnexpected error during the resize" << endl;
     }
 }

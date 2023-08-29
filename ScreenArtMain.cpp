@@ -1,12 +1,17 @@
 #include <iostream>
 #include <stdio.h>
+#include "ScreenFactory.h"
 
 using namespace std;
+using namespace Core;
 
 int main()
 {
     bool exitProgram = false;
     int inputvalue;
+
+    ScreenFactory screenFactory;
+    screenFactory.CreateScreen(20,40);
 
     do 
     { 
