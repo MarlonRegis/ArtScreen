@@ -6,14 +6,15 @@ namespace Core
     class ScreenFactory
     {
         public:
-            void CreateScreen(int lines = 20, int columns = 40);
-            bool ResizeScreen(int lines, int columns);
-            bool ReadScreen();
-            bool DeleteScreen();
-            ScreenFactory();
-            ~ScreenFactory();
+            void CreateScreen(int lines, int columns);
+            void SetEmptyScreen();
+            void ResizeScreen(int lines, int columns);
+            void DrawScreen(int lines, int columns, char valueDraw);
+            void ReadScreen();
+            void DeleteScreen();
+            ScreenFactory() = default;
+            ~ScreenFactory() = default;
         private:
-            ScreenFactory* _screenFactory;
             int _lines;
             int _columns;
             std::string **_screenMatriz;
