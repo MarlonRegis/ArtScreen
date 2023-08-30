@@ -29,7 +29,8 @@ int main()
         try
         {
             PrintScreen();
-            cin >> inputvalue;
+            if (!(cin >> inputvalue))
+                throw std::invalid_argument("Unnexpected value, choice a correctly number!");
 
             int line;
             int column;
@@ -39,18 +40,22 @@ int main()
             {
                 case 1:
                     cout<<"Enter the row: "<< endl;
-                    cin >> line;
+                    if (!(cin >> line))
+                        throw std::invalid_argument("Unnexpected line, choice a correctly line!");
                     cout<<"Enter the column: "<< endl;
-                    cin >> column;
+                    if (!(cin >> column))
+                        throw std::invalid_argument("Unnexpected column, choice a correctly column!");
                     cout<<"Enter the value: "<< endl;
                     cin >> valueDraw;
                     screenFactory.DrawScreen(line-1, column-1, valueDraw);
                     break;
                 case 2:
                     cout << "Enter the number of rows" << std::endl;
-                    cin >> line;
+                    if (!(cin >> line))
+                        throw std::invalid_argument("Unnexpected line, choice a correctly line!");
                     cout << "Enter the numbers of columns" << std::endl;
-                    cin >> column;
+                    if (!(cin >> column))
+                        throw std::invalid_argument("Unnexpected column, choice a correctly column!");
                     
                     screenFactory.ResizeScreen(line, column);
                     break;
@@ -59,15 +64,15 @@ int main()
                     break;
                 case 4:
                     exitProgram = true;
-                break;
-            
-            default:
-                break;
+                    break;
+                default:
+                    cout << "Unnexpected value, choice a correctly number." << endl;
+                    break;
            }
         }
         catch(const exception& e)
         {
-            cout << "Unnexpected value, choice a correctly number." << endl;
+            cout << e.what() << endl;
             break;
         }
         

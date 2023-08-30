@@ -11,9 +11,9 @@ namespace Core
             void ResizeScreen(int lines, int columns);
             void DrawScreen(int lines, int columns, char valueDraw);
             void ReadScreen();
-            void DeleteScreen();
+            void DeleteScreen(std::string** matriz);
             ScreenFactory() = default;
-            ~ScreenFactory() = default;
+            ~ScreenFactory();
         private:
             int _lines;
             int _columns;

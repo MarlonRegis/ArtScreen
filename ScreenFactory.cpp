@@ -5,7 +5,13 @@
 using namespace std;
 using namespace Core;
 
-void ScreenFactory::CreateScreen(int lines, int columns){
+ScreenFactory::~ScreenFactory()
+{
+    ScreenFactory::DeleteScreen(_screenMatriz);
+}
+
+void ScreenFactory::CreateScreen(int lines, int columns)
+{
 
     _lines = lines;
     _columns = columns; 
@@ -17,7 +23,8 @@ void ScreenFactory::CreateScreen(int lines, int columns){
     cout << "Created Screen" << endl;
 }
 
-void ScreenFactory::SetEmptyScreen(){
+void ScreenFactory::SetEmptyScreen()
+{
 
     for (int i = 0; i < _lines; i++) 
     {
@@ -28,19 +35,21 @@ void ScreenFactory::SetEmptyScreen(){
     }
 }
 
-void ScreenFactory::DrawScreen(int lines, int columns, char valueDraw){
+void ScreenFactory::DrawScreen(int lines, int columns, char valueDraw)
+{
     _screenMatriz[lines][columns]=valueDraw;
 }
 
-void ScreenFactory::DeleteScreen(){
-    
+void ScreenFactory::DeleteScreen(std::string** matriz)
+{
     for (int i = 0; i < _lines; i++) {
-        delete[] _screenMatriz[i]; // Libera memória das linhas
+        delete[] matriz[i]; // Libera memória das linhas
     }
-    delete[] _screenMatriz; 
+    delete[] matriz;
 }
 
-void ScreenFactory::ReadScreen(){
+void ScreenFactory::ReadScreen()
+{
 
     for (int i = 0; i < _lines; i++) 
     {
@@ -52,16 +61,9 @@ void ScreenFactory::ReadScreen(){
     }
 }
 
-void ScreenFactory::ResizeScreen(int lines, int columns){
-    int oldLines = _lines;
-    int oldColumns = _columns;
-    std::string ** oldScreen = new std::string *[oldLines];
-    for (int i = 0; i < oldLines; i++) {
-        _screenMatriz[i] = new std::string[oldColumns];
-    }
-    
-    oldScreen =_screenMatriz;
-    ScreenFactory::DeleteScreen();
+void ScreenFactory::ResizeScreen(int lines, int columns)
+{
+    std::string ** oldScreen = _screenMatriz;
     ScreenFactory::CreateScreen(lines, columns);
 
     try
@@ -70,26 +72,13 @@ void ScreenFactory::ResizeScreen(int lines, int columns){
     
         for (int i = 0; i < _lines; i++) 
         {
-            cout << "first for" << endl;    
-    
             for (int j = 0; j < _columns; j++) 
             {
-                cout << "second for "<< j  << " and old columns is "<< _columns << endl; 
                 _screenMatriz[i][j] = oldScreen[i][j];
             }
         }
-        cout << "for passed" << endl; 
 
-
-        for (int i = 0; i < oldLines; i++) 
-        {
-            cout << "VALUE I IS "<< i << " AND THE OLD LINES IS "<< oldLines << endl; 
-            cout << "matrix point "<< oldScreen[i] << endl; 
-            cout << "matrix point "<< _screenMatriz[i] << endl; 
-            delete[] oldScreen[i];
-            cout << "deleting old screen" << endl; 
-        }
-        delete[] oldScreen; 
+        ScreenFactory::DeleteScreen(oldScreen);
     }
     catch(const exception& ex)
     {
