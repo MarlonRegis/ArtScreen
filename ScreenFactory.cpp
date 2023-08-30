@@ -15,17 +15,15 @@ ScreenFactory::~ScreenFactory()
     delete _screenFactory;
 }
 
-bool ScreenFactory::CreateScreen(int lines, int columns){
+void ScreenFactory::CreateScreen(int lines = 20, int columns = 40){
 
     _lines = lines;
     _columns = columns; 
     _screenMatriz = new std::string *[_lines];
     
     for (int i = 0; i < _lines; i++) {
-    _screenMatriz[i] = new std::string[_columns];
+        _screenMatriz[i] = new std::string[_columns];
     }
-
-    return true;
 }
 
 bool ScreenFactory::DeleteScreen(){
@@ -33,6 +31,7 @@ bool ScreenFactory::DeleteScreen(){
     for (int i = 0; i < _lines; i++) {
         delete[] _screenMatriz[i]; // Libera memória das linhas
     }
+
     delete[] _screenMatriz; 
 
     return true;
@@ -40,8 +39,10 @@ bool ScreenFactory::DeleteScreen(){
 
 bool ScreenFactory::ReadScreen(){
 
-    for (int i = 0; i < _lines; i++) {
-        for (int j = 0; j < _columns; j++) {
+    for (int i = 0; i < _lines; i++) 
+    {
+        for (int j = 0; j < _columns; j++) 
+        {
             cout << _screenMatriz[i][j];
         }
         cout << "\n"<< endl;
@@ -60,8 +61,10 @@ bool ScreenFactory::ResizeScreen(int lines, int columns){
 
     try
     {
-        for (int i = 0; i < oldLines && i <= _lines; i++) {
-            for (int j = 0; j < oldColumns && j <= _columns; j++) {
+        for (int i = 0; i < oldLines && i <= _lines; i++) 
+        {
+            for (int j = 0; j < oldColumns && j <= _columns; j++) 
+            {
                 _screenMatriz[i][j] = oldScreen[i][j];
             }
         }

@@ -6,7 +6,7 @@ namespace Core
     class ScreenFactory
     {
         public:
-            bool CreateScreen(int lines, int columns);
+            void CreateScreen(int lines = 20, int columns = 40);
             bool ResizeScreen(int lines, int columns);
             bool ReadScreen();
             bool DeleteScreen();

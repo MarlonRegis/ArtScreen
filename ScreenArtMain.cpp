@@ -11,7 +11,7 @@ int main()
     int inputvalue;
 
     ScreenFactory screenFactory;
-    screenFactory.CreateScreen(20,40);
+    screenFactory.CreateScreen();
 
     do 
     { 
@@ -19,23 +19,24 @@ int main()
         {
             cout<<"1) Desenhar,\n2) Redimensionar,\n3) Visualizar,\n4) Sair do Programa. "<< endl;
             cin >> inputvalue;
+            
             switch (inputvalue)
             {
-            case 1:
-            /* code */
-            break;
-            case 2:
-            /* code */
-            break;
-            case 3:
-            /* code */
-            break;
-            case 4:
-                exitProgram = true;
-            break;
-           
-           default:
-            break;
+                case 1:
+                    /* code */
+                    break;
+                case 2:
+                    /* code */
+                    break;
+                case 3:
+                    /* code */
+                    break;
+                case 4:
+                    exitProgram = true;
+                break;
+            
+            default:
+                break;
            }
         }
         catch(const exception& e)
